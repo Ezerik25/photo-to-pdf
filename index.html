@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Photo to PDF</title>
+  <meta charset="UTF-8">
+</head>
+<body style="text-align: center; padding: 50px; font-family: Arial;">
+  <h1>Photo to PDF Converter</h1>
+  <input type="file" id="fileInput" accept="image/*" multiple><br><br>
+  <button onclick="generatePDF()">Convert to PDF</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    async function generatePDF() {
+      const { jsPDF } = window.jspdf;
+      const files = document.getElementById('fileInput').files;
+
+      if (files.length === 0) {
+        alert('Please select at least one image.');
+        return;
+      }
+
+      const pdf = new jsPDF();
+
+      for (let i = 0; i < files.length; i++) {
+        const imgData = await readImageAsDataURL(files[i]);
+
+        if (i > 0) pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', 10, 10, 180, 160); // Size fits A4 page
+      }
+
+      pdf.save("your_photos.pdf");
+    }
+
+    function readImageAsDataURL(file) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+      });
+    }
+  </script>
+</body>
+</html>
