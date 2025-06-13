@@ -7,16 +7,7 @@
 <body style="text-align: center; padding: 50px; font-family: Arial;">
   <h1>Photo to PDF Converter</h1>
   <input type="file" id="fileInput" accept="image/*" multiple><br><br>
-  <a href="#" onclick="showLocker()">Download PDF</a>
-<div id="lockerContainer"></div>
-<script type="text/javascript">
-  function showLocker() {
-    document.getElementById('lockerContainer').innerHTML = `
-      <!-- <script type="text/javascript" src="https://singingfiles.com/script_include.php?id=1816743"></script> -->
-    `;
-  }
-</script>
-
+  <button onclick="generatePDF()">Convert to PDF</button>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
